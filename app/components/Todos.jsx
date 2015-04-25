@@ -91,8 +91,8 @@ class Todos extends React.Component {
   }
 
   clearCompleted() {
-    this.props.todos.set(
-      this.props.todos.filter(todo => !todo.get('completed'))
+    this.store().update('todos', todos =>
+      todos.filter(todo => !todo.get('completed'))
     );
   }
 

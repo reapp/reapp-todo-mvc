@@ -34,25 +34,25 @@ class Todos extends React.Component {
   }
 
   handleNewTodoKeyDown(e) {
-    if (e.which !== ENTER_KEY)
-      return;
+    // WHY IS IT UNDEFINED
+    if (e.which === ENTER_KEY || typeof e.which === 'undefined') {
+      e.preventDefault();
 
-    e.preventDefault();
+      var val = this.refs.newField.getDOMNode().value.trim();
 
-    var val = this.refs.newField.getDOMNode().value.trim();
+      if (val) {
+        const newTodo = {
+          id: uuid(),
+          title: val,
+          completed: false
+        };
 
-    if (val) {
-      const newTodo = {
-        id: uuid(),
-        title: val,
-        completed: false
-      };
+        this.store().update('todos', todos =>
+          todos.push(Immutable.fromJS(newTodo))
+        );
 
-      this.store().update('todos', todos =>
-        todos.push(Immutable.fromJS(newTodo))
-      );
-
-      this.refs.newField.getDOMNode().value = '';
+        this.refs.newField.getDOMNode().value = '';
+      }
     }
   }
 

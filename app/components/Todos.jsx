@@ -91,7 +91,7 @@ class Todos extends React.Component {
 
   clearCompleted() {
     this.props.todos.set(
-      this.props.todos.filter(todo => !todo.completed)
+      this.props.todos.filter(todo => !todo.get('completed'))
     );
   }
 
@@ -104,9 +104,9 @@ class Todos extends React.Component {
     const shownTodos = todos.filter(todo => {
       switch (this.router().getCurrentPathname()) {
         case ACTIVE_TODOS:
-          return !todo.completed;
+          return !todo.get('completed');
         case COMPLETED_TODOS:
-          return todo.completed;
+          return todo.get('completed');
         default:
           return true;
       }
@@ -126,7 +126,7 @@ class Todos extends React.Component {
     );
 
     const activeTodoCount = todos.reduce(
-      (accum, todo) => todo.completed ? accum : accum + 1,
+      (accum, todo) => todo.get('completed') ? accum : accum + 1,
       0
     );
 
@@ -154,7 +154,7 @@ class Todos extends React.Component {
         </section>
 
     return (
-      <div>
+      <div id="todoapp">
         <header id="header">
           <h1>todos</h1>
           <input

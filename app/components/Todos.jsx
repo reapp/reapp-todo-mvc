@@ -48,9 +48,10 @@ class Todos extends React.Component {
         completed: false
       };
 
-      this.props.todos.set(
-        this.props.todos.push(Immutable.fromJS(newTodo))
+      this.store().update('todos', todos =>
+        todos.push(Immutable.fromJS(newTodo))
       );
+
       this.refs.newField.getDOMNode().value = '';
     }
   }
@@ -66,9 +67,9 @@ class Todos extends React.Component {
   }
 
   toggle(todoToToggle) {
-    this.props.todos.withMutations(todos =>
+    this.store().update('todos', todos =>
       todos.map(todo =>
-        todo.set('completed', !todo.get('completed'))
+        Immutable.is(todo, todoToToggle) ? todo.set('completed', !todo.get('completed')) : todo
       )
     );
   }

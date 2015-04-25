@@ -75,8 +75,8 @@ class Todos extends React.Component {
   }
 
   destroy(destroyTodo) {
-    this.props.todos.set(
-      this.props.todos.filter(todo => todo.get('id') !== destroyTodo.get('id'))
+    this.store().update('todos', todos =>
+      todos.filter(todo => todo.get('id') !== destroyTodo.get('id'))
     );
   }
 

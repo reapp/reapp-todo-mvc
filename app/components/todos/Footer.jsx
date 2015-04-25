@@ -1,4 +1,4 @@
-import { React } from 'reapp-kit';
+import { React, Router } from 'reapp-kit';
 
 const pluralize = function (count, word) {
   return count === 1 ? word : word + 's';
@@ -26,15 +26,15 @@ export default class TodoFooter extends React.Component {
 
         <ul id="filters">
           <li>
-            <a href="#/" className={show[ALL_TODOS]}>All</a>
+            <Router.Link to="/" className={show[ALL_TODOS]}>All</Router.Link>
           </li>
           {' '}
           <li>
-            <a href="#/active" className={show[ACTIVE_TODOS]}>Active</a>
+            <Router.Link to="/active" className={show[ACTIVE_TODOS]}>Active</Router.Link>
           </li>
           {' '}
           <li>
-            <a href="#/completed" className={show[COMPLETED_TODOS]}>Completed</a>
+            <Router.Link to="/completed" className={show[COMPLETED_TODOS]}>Completed</Router.Link>
           </li>
         </ul>
 

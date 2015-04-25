@@ -58,9 +58,9 @@ class Todos extends React.Component {
   toggleAll(event) {
     const checked = event.target.checked;
 
-    this.props.todos.withMutations(todos => {
-      todos.map(todo =>
-        todo.set('completed', checked)
+    this.store().withMutations(store => {
+      store.set('todos',
+        store.get('todos').map(todo => todo.set('completed', checked))
       )
     });
   }
@@ -96,13 +96,14 @@ class Todos extends React.Component {
   }
 
   render() {
+    const path = this.router().getCurrentPathname();
     const { todos } = this.props;
 
     let footer = null;
     let main = null;
 
     const shownTodos = todos.filter(todo => {
-      switch (this.router().getCurrentPathname()) {
+      switch (path) {
         case ACTIVE_TODOS:
           return !todo.get('completed');
         case COMPLETED_TODOS:

@@ -1,6 +1,7 @@
 import { Reapp, React, Immutable, store } from 'reapp-kit';
 import Footer from './todos/Footer';
 import TodoItem from './todos/TodoItem';
+import ReactDOM from 'react-dom';
 
 const ENTER_KEY = 13;
 
@@ -34,11 +35,10 @@ class Todos extends React.Component {
   }
 
   handleNewTodoKeyDown(e) {
-    // WHY IS IT UNDEFINED
     if (e.which === ENTER_KEY || typeof e.which === 'undefined') {
       e.preventDefault();
 
-      var val = this.refs.newField.getDOMNode().value.trim();
+      var val = ReactDOM.findDOMNode(this.refs.newField).value.trim();
 
       if (val) {
         const newTodo = {
@@ -51,7 +51,7 @@ class Todos extends React.Component {
           todos.push(Immutable.fromJS(newTodo))
         );
 
-        this.refs.newField.getDOMNode().value = '';
+        ReactDOM.findDOMNode(this.refs.newField).value = '';
       }
     }
   }
